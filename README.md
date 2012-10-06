@@ -9,11 +9,11 @@ Test your browser's ability to handle absurd numbers of nested elements.
 
 ### Why?
 
-My coworkers and I noticed some interesting browser-specifc nested-element
-behavior when viewing bloated [SharePoint](http://sharepoint.microsoft.com)
-pages, and wanted to see how far we could push it.
+My coworkers and I wanted to explore some interesting browser-specifc
+nested-element behavior when viewing bloated
+[SharePoint](http://sharepoint.microsoft.com) pages.
 
-Because Fridays are meant for silly projects.
+Also, because Fridays are meant for silly projects.
 
 ### Screenshots
 
