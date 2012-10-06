@@ -2,7 +2,8 @@
 
 # Matryoshka test
 
-Test your browser's ability to handle absurd numbers of nested elements.
+Test your browser's ability to handle absurd numbers of nested elements,
+generated with JavaScript.
 
 [Matryoshkify now](http://robatron.github.com/matryoshka-test)!
 
@@ -10,7 +11,7 @@ Test your browser's ability to handle absurd numbers of nested elements.
 ### Why?
 
 My coworkers and I wanted to explore some interesting browser-specifc
-nested-element behavior when viewing bloated
+nested-element behavior we found when viewing bloated
 [SharePoint](http://sharepoint.microsoft.com) pages.
 
 Also, because Fridays are meant for silly projects.
