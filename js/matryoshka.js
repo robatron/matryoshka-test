@@ -74,7 +74,7 @@ function matryoshka(tag, count, container, clear_container, include_report){
 
             // Number of elements created
             nr_created + ' of ' + count + ' ' + tag + 's created (' +
-            (nr_created/count*100).toFixed(2) + ' %) in ' + duration +
+            (nr_created/count*100).toFixed(2) + '%) in ' + duration +
             ' ms (' + (nr_created/duration).toFixed(2) + ' divs/ms) <br>' +
 
             // Number of visible elements
