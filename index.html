@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Matryoshka test</title>
+
+        <link href='css/bootstrap-2.1.1.min.css' rel='stylesheet'>
+        <link href='css/bootstrap-responsive-2.1.1.min.css' rel='stylesheet'>
+        <style>
+            body {
+                margin-top: 20px;
+            }
+            .container {
+                max-width: 479px;
+            }
+            .nested {
+                border-left: 1px solid;
+                font-size: 8pt;
+                line-height: 10px;
+                margin: 0px;
+                padding: 0px 1px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <img src='img/dolls.jpg'>
+            <h1>Matryoshka test</h1>
+            <p>
+                Test your browser's ability to handle absurd numbers of nested
+                elements. Grab the code from <a href=''>github</a>.
+            </p>
+
+            <h3>Why?</h3>
+            <p>
+                Because it's Friday.
+            </p>
+
+            <h3>Create nested tags:</h3>
+
+            <form class='form-horizontal'>
+                <div class='control-group'>
+                    <label for='tag' class='control-label'>
+                        Tag
+                    </label>
+                    <div class='controls'>
+                        <span rel='tooltip' data-placement='right'
+                                data-original-title=
+                                        'Type of tag to nest'>
+                            <input id='tag' type='text' value='div'>
+                        </span>
+                    </div>
+                </div>
+                <div class='control-group'>
+                    <label for='count' class='control-label'>
+                        Count:
+                    </label>
+                    <div class='controls'>
+                        <span rel='tooltip' data-placement='right'
+                                data-original-title=
+                                        'How many tags to nest'>
+                            <input id='count' type='number'
+                                    value='500'>
+                        </span>
+                    </div>
+                </div>
+                <div class='control-group'>
+                    <label for='container' class='control-label'>
+                        Container tag:
+                    </label>
+                    <div class='controls'>
+                        <span rel='tooltip' data-placement='right'
+                                data-original-title=
+                                        'Tag to contain nested tags'>
+                            <input id='container' type='text'
+                                    value='body'/>
+                        </span>
+                    </div>
+                </div>
+                <div class='control-group'>
+                    <div class='controls'>
+                        <label class='checkbox'>
+                            <span rel='tooltip'
+                                    data-placement='right'
+                                    data-original-title='
+                                            Clear the container before<br>
+                                            creating nestedtags'>
+                                <input id='clear-container'
+                                    type='checkbox' checked='true'>
+                                Clear container first
+                            </span>
+                        </label>
+                        <label class='checkbox'>
+                            <span rel='tooltip'
+                                    data-placement='right'
+                                    data-original-title='Include performance
+                                             report after<br>creating nested
+                                             tags'>
+                                <input id='include-report' type='checkbox'
+                                        checked='true'>
+                                Include report
+                            </span>
+                        </label>
+                        <button id='create'>
+                            Create nested tags
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <!-- Nested divs will be rendered below here -->
+
+        <script src='js/jquery-1.8.2.min.js'></script>
+        <script src='js/bootstrap-2.1.1.min.js'></script>
+        <script>
+            $(function(){
+
+                // Initialize the form tooltips
+                $('[rel=tooltip]').tooltip()
+
+                // Create tags button click handler
+                $('button#create').click(function(){
+
+                    // Capture form values
+                    var container = $('input#container').val()
+                    var $container = $(container)
+                    var tag = $('input#tag').val()
+                    var count = $('input#count').val()
+                    var clear_container =
+                            $('input#clear-container').is(':checked')
+                    var include_report =
+                            $('input#include-report').is(':checked')
+
+                    // Set the current element to the container
+                    // element, clearing its contents if necessary
+                    var $el = clear_container ? $container.html('') :
+                            $container
+
+                    // Remove any previously-nested elements
+                    $('.nested').remove()
+
+                    // Create the specified number of elements
+                    var tick = (new Date).getTime()
+                    for(var i=1; i<=count; i++){
+                        $el = $('<'+ tag +'/>', {
+                            id: i,
+                            class: 'nested',
+                            text: (i).toString()
+                        }).appendTo($el)
+                    }
+                    var tock = (new Date).getTime()
+
+                    if(include_report){
+                        var duration = tock - tick
+                        var nr_created = $('.nested').length
+                        var nr_visible = $('.nested:visible').length
+                        var browser_engines = []
+                            for(var key in $.browser)
+                                if(key !== 'version')
+                                    browser_engines.push(key)
+
+                        $container.prepend(
+                            nr_created + ' of ' + count +
+                            ' ' + tag + 's created (' +
+                            (nr_created/count*100).toFixed(2) +
+                            ' %) in ' + duration +
+                            ' ms (' +
+                            (nr_created/duration).toFixed(2) +
+                            ' divs/ms) <br>' +
+
+                            nr_visible + ' of ' + nr_created +
+                            ' are visible (' +
+                            (nr_visible/nr_created*100).toFixed(2) +
+                            '%) <br>' +
+
+                            browser_engines.join('/') +
+                            ' (ver ' + $.browser.version +
+                            ')<br><br>' +
+
+                            '<a href="#" ' +
+                            'onclick="location.reload()">[Clear]' +
+                            '</a><hr>'
+                        )
+                    }
+
+                    // Scroll window to the top
+                    window.scrollTo(0, 0)
+
+                    // Prevent default button behavior
+                    return false
+                })
+            })
+        </script>
+    </body>
+</html>
