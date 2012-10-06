@@ -12,13 +12,6 @@
             .container {
                 max-width: 479px;
             }
-            .nested {
-                border-left: 1px solid;
-                font-size: 8pt;
-                line-height: 10px;
-                margin: 0px;
-                padding: 0px 1px;
-            }
         </style>
     </head>
     <body>
@@ -132,76 +125,21 @@
 
         <script src='js/jquery-1.8.2.min.js'></script>
         <script src='js/bootstrap-2.1.1.min.js'></script>
+        <script src='js/matryoshka.js'></script>
         <script>
             $(function(){
-
                 // Initialize the form tooltips
                 $('[rel=tooltip]').tooltip()
 
-                // Create tags button click handler
+                // Matryoshkify on click
                 $('button#create').click(function(){
-
-                    // Capture form values
-                    var container = $('input#container').val()
-                    var $container = $(container)
-                    var tag = $('input#tag').val()
-                    var count = $('input#count').val()
-                    var clear_container =
-                            $('input#clear-container').is(':checked')
-                    var include_report =
-                            $('input#include-report').is(':checked')
-
-                    // Set the current element to the container
-                    // element, clearing its contents if necessary
-                    var $el = clear_container ? $container.html('') :
-                            $container
-
-                    // Remove any previously-nested elements
-                    $('.nested').remove()
-
-                    // Create the specified number of elements
-                    var tick = (new Date).getTime()
-                    for(var i=1; i<=count; i++){
-                        $el = $('<'+ tag +'/>', {
-                            id: i,
-                            class: 'nested',
-                            text: (i).toString()
-                        }).appendTo($el)
-                    }
-                    var tock = (new Date).getTime()
-
-                    if(include_report){
-                        var duration = tock - tick
-                        var nr_created = $('.nested').length
-                        var nr_visible = $('.nested:visible').length
-                        var browser_engines = []
-                            for(var key in $.browser)
-                                if(key !== 'version')
-                                    browser_engines.push(key)
-
-                        $container.prepend(
-                            nr_created + ' of ' + count +
-                            ' ' + tag + 's created (' +
-                            (nr_created/count*100).toFixed(2) +
-                            ' %) in ' + duration +
-                            ' ms (' +
-                            (nr_created/duration).toFixed(2) +
-                            ' divs/ms) <br>' +
-
-                            nr_visible + ' of ' + nr_created +
-                            ' are visible (' +
-                            (nr_visible/nr_created*100).toFixed(2) +
-                            '%) <br>' +
-
-                            browser_engines.join('/') +
-                            ' (ver ' + $.browser.version +
-                            ')<br><br>' +
-
-                            '<a href="#" ' +
-                            'onclick="location.reload()">[Clear]' +
-                            '</a><hr>'
-                        )
-                    }
+                    matryoshka(
+                        $('input#tag').val(),
+                        $('input#count').val(),
+                        $('input#container').val(),
+                        $('input#clear-container').is(':checked'),
+                        $('input#include-report').is(':checked')
+                    )
 
                     // Scroll window to the top
                     window.scrollTo(0, 0)
