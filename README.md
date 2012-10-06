@@ -4,7 +4,7 @@
 
 Test your browser's ability to handle absurd numbers of nested elements.
 
-[Run it now](http://robatron.github.com/matryoshka-test)!
+[Matryoshkify now](http://robatron.github.com/matryoshka-test)!
 
 
 ### Why?
